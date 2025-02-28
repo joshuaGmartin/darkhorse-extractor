@@ -27,18 +27,28 @@ export default function mergeSort(arr) {
     //base case: if both array.lenght = 0, you're done
     if (!arr1.length && !arr2.length) return [];
 
+    //note: running the (arr1.length && !arr2.length) and (!arr1.length && arr2.length) check first so JS doesn't check for .page on an empty array
+
     //if second array is done, return first value of first array as an array ([arr1.shift()])
-    //if first value of first array is less that first value of second array, return first value of first array as an array ([arr1.shift()])
     //shift first array and call recursive function, concat result
-    if ((arr1.length && !arr2.length) || arr1[0] <= arr2[0]) {
+    if (arr1.length && !arr2.length) {
       return [arr1.shift()].concat(merge(arr1, arr2));
     }
-
     //if first array is done, return first value of second array as an array ([arr2.shift()])
+    //shift second array and call recursive function, concat result
+    if (!arr1.length && arr2.length) {
+      return [arr2.shift()].concat(merge(arr1, arr2));
+    }
+
     //if first value of second array is less that first value of first array, return first value of second array as an array
     //shift second array and call recursive function, concat result
-    if ((!arr1.length && arr2.length) || arr1[0] > arr2[0]) {
+    if (arr1[0].page > arr2[0].page) {
       return [arr2.shift()].concat(merge(arr1, arr2));
+    }
+    //if first value of first array is less that first value of second array, return first value of first array as an array ([arr1.shift()])
+    //shift first array and call recursive function, concat result
+    if (arr1[0].page <= arr2[0].page) {
+      return [arr1.shift()].concat(merge(arr1, arr2));
     }
   }
 

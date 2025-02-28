@@ -21,4 +21,6 @@ x 144 Frankenstein Underground
 22 Free Comic Book Day 2022 General
 22 Free Comic Book Day 2022 All Ages
 
-// https://myactivity.google.com/myactivity
+notes:
+https://myactivity.google.com/myactivity
+-the urls expire eventually

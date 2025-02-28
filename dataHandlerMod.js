@@ -20,33 +20,58 @@ export function getPreConvertedURLs() {
 }
 
 export function getFinalURLs() {
-  const bookURLs = [];
+  const allBookURLs = [];
 
   for (const url of rawDataMod.convertedURLs) {
+    //if pull from chrome histoty
     let trimURL = url;
 
+    //if pull from chrome activity
     if (url.includes("https://www.google.com/url?q=")) {
-      trimURL = url.split("https://www.google.com/url?q=")[1];
+      trimURL = url.split("https://www.google.com/url?q=")[1]; //split off prepend and grab the second half
     }
 
     if (trimURL.includes("https://www.amazon.com/")) break;
 
-    if (trimURL.includes("https://drhq3xefn6rcs.cloudfront.net")) {
-      bookURLs.push(trimURL);
-    }
+    allBookURLs.push(trimURL);
   }
 
-  const formattedURLs = formatURLsFinal(bookURLs);
+  const formattedURLs = formatURLsFinal(allBookURLs);
+  const finalURLsAndPage = addPageNum(formattedURLs);
 
-  return mergeSort(formattedURLs);
+  return mergeSort(finalURLsAndPage);
+}
+
+function addPageNum(urls) {
+  const urlsAndPages = [];
+  const preConvertedURLs = getPreConvertedURLs();
+
+  urls.forEach((url) => {
+    let pageNum;
+
+    for (const obj of preConvertedURLs) {
+      const urlID = obj.urlData.slice(-36);
+
+      if (url.includes(urlID)) {
+        pageNum = obj.page;
+        break;
+      }
+    }
+
+    urlsAndPages.push({ url, page: pageNum });
+  });
+
+  return urlsAndPages;
 }
 
 function formatURLsFinal(urls) {
   const finalURLs = [];
 
   urls.forEach((url) => {
+    //if pull from chrome histoty
     let finalURL = url;
 
+    //if pull from chrome activity
     if (finalURL.includes("%")) {
       finalURL = url.split("%");
 
