@@ -1,0 +1,22 @@
+body {
+  /* background-color: aquamarine; */
+
+  > * {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+button {
+  display: block;
+}
+
+@media print {
+  button {
+    display: none;
+  }
+}
+
+img {
+  width: 100%;
+}
