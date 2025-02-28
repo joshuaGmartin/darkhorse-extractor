@@ -23,7 +23,7 @@ export function getFinalURLs() {
   const allBookURLs = [];
 
   for (const url of rawDataMod.convertedURLs) {
-    //if pull from chrome histoty
+    //if pull from chrome history
     let trimURL = url;
 
     //if pull from chrome activity
@@ -33,7 +33,9 @@ export function getFinalURLs() {
 
     if (trimURL.includes("https://www.amazon.com/")) break;
 
-    allBookURLs.push(trimURL);
+    if (trimURL.includes("https://drhq3xefn6rcs.cloudfront.net")) {
+      allBookURLs.push(trimURL);
+    }
   }
 
   const formattedURLs = formatURLsFinal(allBookURLs);
